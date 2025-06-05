@@ -1,0 +1,48 @@
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+
+    .header {
+        width: 100%;
+        padding: 1rem;
+        height: 50px;
+
+        .breadcrumb {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin: 0;
+        }
+    }
+}
+
+.content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 1rem;
+    min-height: 0;
+}
+
+.sidenavWrapper {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidenavHeader {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    height: 50px;
+}
