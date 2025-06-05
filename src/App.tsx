@@ -61,13 +61,13 @@ function App() {
                   <Button appearance="primary" block onClick={handleLogin}>
                     Entrar
                   </Button>
-                  <a href="#">Esqueceu a Senha?</a>
+                  <a href='/forgotpassword'>Esqueceu a Senha?</a>
                 </VStack>
               </Form>
 
               <Divider>Entrar com</Divider>
 
-              <Button endIcon={<FaGoogle />} block href="https://www.google.com">
+              <Button endIcon={<FaGoogle />} block href="/">
                 Continuar com Google
               </Button>
             </Panel>

@@ -1,5 +1,5 @@
 import { Icon } from '@rsuite/icons';
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { FaReact, FaSignInAlt } from 'react-icons/fa';
 import {
     MdAssignment,
@@ -29,6 +29,21 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
     const [expand, setExpand] = useState(true);
+    const [showText, setShowText] = useState(false);
+
+    useEffect(() => {
+        let timeout: ReturnType<typeof setTimeout>;
+
+        if (expand) {
+            timeout = setTimeout(() => {
+                setShowText(true);
+            }, 100);
+        } else {
+            setShowText(false);
+        }
+
+        return () => clearTimeout(timeout);
+    }, [expand]);
 
     return (
         <>
@@ -40,7 +55,11 @@ export default function Layout({ children }: LayoutProps) {
                 >
                     <div>
                         <Sidenav.Header className={styles.sidenavHeader}>
-                            <Brand expand={expand} />
+                            {/* @ts-ignore */}
+                            <HStack align="center" justify="start" spacing={10}>
+                                <FaReact size={24} />
+                                {showText && <Text>Sistema Base</Text>}
+                            </HStack>
                         </Sidenav.Header>
 
                         <Sidenav expanded={expand} appearance="subtle">
@@ -115,14 +134,5 @@ const NavToggle = ({ expand, onChange }: any) => {
                 icon={expand ? <MdKeyboardArrowLeft /> : <MdOutlineKeyboardArrowRight />}
             />
         </Stack>
-    );
-};
-
-const Brand = ({ expand }: any) => {
-    return (
-        <HStack className="page-brand" spacing={12}>
-            <FaReact size={26} />
-            {expand && <Text>Brand</Text>}
-        </HStack>
     );
 };

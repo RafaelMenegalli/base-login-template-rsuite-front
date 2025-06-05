@@ -3,6 +3,7 @@ import App from '../App';
 import Layout from '../layouts/Layout';
 import Dashboard from '../pages/dashboard';
 import Users from '../pages/users';
+import ForgotPassword from '../pages/forgotPassword';
 
 export default function AppRoutes() {
     return (
@@ -10,6 +11,10 @@ export default function AppRoutes() {
             <Routes>
                 <Route path="/" element={
                     <App />
+                } />
+
+                <Route path="/forgotpassword" element={
+                    <ForgotPassword />
                 } />
 
                 <Route path="/dashboard" element={
