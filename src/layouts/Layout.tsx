@@ -7,7 +7,7 @@ import {
     MdKeyboardArrowLeft,
     MdOutlineKeyboardArrowRight
 } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
     Breadcrumb,
     Container,
@@ -21,6 +21,7 @@ import {
     Stack,
     Text
 } from 'rsuite';
+import { formatName } from '../utils/formatName';
 import styles from "./styles.module.scss";
 
 interface LayoutProps {
@@ -30,6 +31,9 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
     const [expand, setExpand] = useState(true);
     const [showText, setShowText] = useState(false);
+
+    const location = useLocation();
+    const pathnames = location.pathname.split('/').filter((x) => x);
 
     useEffect(() => {
         let timeout: ReturnType<typeof setTimeout>;
@@ -109,9 +113,22 @@ export default function Layout({ children }: LayoutProps) {
                 <Container className={styles.mainContent}>
                     <Header className={styles.header}>
                         <Breadcrumb className={styles.breadcrumb}>
-                            <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
-                            <Breadcrumb.Item href="##">Dashboard</Breadcrumb.Item>
-                            <Breadcrumb.Item active>Overview</Breadcrumb.Item>
+                            <Breadcrumb.Item as={Link} to="/dashboard">
+                                Dashboard
+                            </Breadcrumb.Item>
+                            {pathnames.map((name, index) => {
+                                const routeTo = '/' + pathnames.slice(0, index + 1).join('/');
+                                const isLast = index === pathnames.length - 1;
+                                return isLast ? (
+                                    <Breadcrumb.Item key={name} active>
+                                        {formatName(name)}
+                                    </Breadcrumb.Item>
+                                ) : (
+                                    <Breadcrumb.Item key={name} as={Link} to={routeTo}>
+                                        {formatName(name)}
+                                    </Breadcrumb.Item>
+                                );
+                            })}
                         </Breadcrumb>
                     </Header>
 
